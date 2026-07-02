@@ -1,0 +1,3 @@
+import create from 'zustand';
+interface ChatStore {sessionId: string; messages: any[]; loading: boolean; error: string | null; initSession: () => void; addMessage: (msg: any) => void; setLoading: (l: boolean) => void; setError: (e: string | null) => void;}
+export const useChatStore = create<ChatStore>((set) => ({sessionId: localStorage.getItem('sid') || '', messages: [], loading: false, error: null, initSession: () => {const sid = localStorage.getItem('sid') || `s-${Date.now()}`; localStorage.setItem('sid', sid); set({ sessionId: sid });}, addMessage: (msg) => set((s) => ({ messages: [...s.messages, msg] })), setLoading: (l) => set({ loading: l }), setError: (e) => set({ error: e }),}));
